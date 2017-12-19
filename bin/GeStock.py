@@ -17,7 +17,7 @@ def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
 def afficheMenu():
-    listeActions = ["Vente","Ajouter Utilisateur","Crediter Utilisateur", "Consulter Solde", "Ajouter Produit", "Ajouter Stock", "Consulter Stock", "Sauvegarder & Quitter"]
+    listeActions = ["Vente","Ajouter Utilisateur","Crediter Utilisateur", "Consulter Solde", "Ajouter Produit", "Ajouter Stock", "Consulter Stock","Transferer solde Bonus", "Sauvegarder & Quitter"]
     data = eg.choicebox(msg="Que souhaitez vous faire ?", title="GeStock", choices=listeActions)
     launch(data)
 
@@ -29,6 +29,7 @@ initHistoryIn()
 initStock()
 initHistoryStock()
 initHistoryOut()
+initBonus()
 
 def launch(rep):
     if rep == "Vente":
@@ -45,6 +46,8 @@ def launch(rep):
         ajouterStock()
     elif rep == "Consulter Stock":
         consulterStock()
+    elif rep == "Transferer solde Bonus":
+        transfererBonus()
     elif rep == "Sauvegarder & Quitter":
         c.close()
         exit()

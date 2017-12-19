@@ -6,6 +6,7 @@ import random
 import easygui as eg
 from GeStock_HistoryIn import *
 from GeStock_HistoryStock import *
+from GeStock_Users import *
 from GeStock_Bonus import *
 
 conn = sqlite3.connect("users.db")
@@ -27,6 +28,36 @@ def ajouterProduit():
     conn.commit()
     eg.msgbox(msg="Produit ajouté !")
     historyStock(idProduit, stock)
+
+def tradCarte(temp):
+    res = []
+    resInt = 0
+    for i in range(len(temp)):
+        if temp[i] == "&" or temp[i] == "1":
+            res.append(1)
+        elif temp[i] == "é" or temp[i] == "2":
+            res.append(2)
+        elif temp[i] == '"' or temp[i] == "3":
+            res.append(3)
+        elif temp[i] == "'" or temp[i] == "4":
+            res.append(4)
+        elif temp[i] == "(" or temp[i] == "5":
+            res.append(5)
+        elif temp[i] == "-" or temp[i] == "6":
+            res.append(6)
+        elif temp[i] == "è" or temp[i] == "7":
+            res.append(7)
+        elif temp[i] == "_" or temp[i] == "8":
+            res.append(8)
+        elif temp[i] == "ç" or temp[i] == "9":
+            res.append(9)
+        elif temp[i] == "à" or temp[i] == "0":
+            res.append(0)
+        else:
+            res.append(temp[i])
+    for i in range(len(res)):
+        resInt += res[len(res)-i-1]*10**i
+    return(resInt)
 
 def ajouterStock():
     rep = False

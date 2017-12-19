@@ -5,12 +5,20 @@ import datetime
 import random
 import easygui as eg
 from GeStock_Users import *
+from GeStock_Bonus import *
 from GeStock_HistoryIn import *
 from GeStock_Stock import *
 from GeStock_HistoryOut import *
 
 conn = sqlite3.connect("users.db")
 c = conn.cursor()
+
+
+def beautify(moche):
+    beau = ""
+    for i in moche:
+        beau += str(i)
+    return beau
 
 def vendre():
     rep = False
@@ -23,7 +31,7 @@ def vendre():
         index = eg.choicebox(msg="Pick an item", choices=liste, title="Vente")
         for i in range(len(liste)) :
             if liste[i] == index:
-                idProduit = str(i)
+                idProduit = str(i+1)
         if idProduit == None or idProduit == "":
             return
         c.execute ('SELECT stock FROM stock WHERE idProduit = '+ idProduit)
@@ -60,18 +68,28 @@ def debiter(idProduit, count):
     solde = solde[0]
     if solde > prix :
         c.execute("UPDATE users SET solde = " + str(solde - prix) + "  WHERE idCarte = " + str(carte))
+
         c.execute("SELECT nom FROM users WHERE idCarte = "+ str(carte))
         compte = c.fetchone()
+
         debitMessage = ("Debit sur le compte \"", compte[0] , "\" ... OK !")
         deb = str(count - 1)
+
         prod = str(idProduit)
         c.execute("UPDATE stock SET stock = " + deb + " WHERE idProduit = " + prod)
         debitMessage = beautify(debitMessage)
         debitMessage += "\nDestockage ... OK !"
+
         c.execute("SELECT solde FROM users WHERE idCarte = "+ carte)
         solde = c.fetchone()
         debitMessage = (debitMessage, "\nSolde restant pour", compte[0] ," : ",solde[0])
         debitMessage = beautify(debitMessage)
+        c.execute("SELECT  soldeBonus FROM bonus WHERE idCarte = "+carte)
+        ########################
+        solde = c.fetchone()
+        solde = int(solde[0]) + 0.1
+        ########################
+        c.execute("UPDATE bonus SET soldeBonus =" + str(solde) + " WHERE idCarte = "+ carte)
         eg.msgbox(msg=debitMessage, title="Succès !")
         conn.commit()
         historyOut(carte, idProduit)

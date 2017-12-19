@@ -45,6 +45,7 @@ def tradCarte(temp):
 
 def ajouterUtilisateur():
     temp = eg.enterbox(msg="Passez une carte vierge")
+    if temp is None : return;
     carte = str(tradCarte(temp))
     c.execute ('SELECT COUNT(idCarte) FROM users WHERE idCarte = '+ carte)
     count = c.fetchone()
@@ -52,9 +53,13 @@ def ajouterUtilisateur():
         eg.msgbox(msg="Il y a déjà un utilisateur enregistré sur cette carte !")
     else:
         nom = eg.enterbox(msg="Nom de l'utilisateur",title="Enregistrement")
+        if nom is None : return;
         solde = eg.enterbox(msg="Solde de l'utilisateur",title="Enregistrement")
+        if solde is None : solde = 0;
         c.execute("INSERT INTO users (idCarte, solde, nom) VALUES ( ?, ?, ?)",
               (carte, solde, nom))
+        c.execute("INSERT INTO bonus (idCarte, soldeBonus, vip) VALUES ( ?, ?, ?)",
+              (carte, 0, False))
         conn.commit()
         eg.msgbox(msg="Utilisateur ajouté !", title="Succès !")
         historyIn(carte, solde)
@@ -67,7 +72,9 @@ def consulterSolde():
     solde = c.fetchone()
     c.execute ('SELECT nom FROM users WHERE idCarte = '+ carte)
     compte = c.fetchone()
-    solde = "Le solde est de : ", solde[0] ," E \nLa carte appartient à ", compte[0] 
+    c.execute ('SELECT soldeBonus FROM bonus WHERE idCarte = '+ carte)
+    bonus = c.fetchone()
+    solde = "Le solde est de : ", solde[0], "E\nLe solde bonus est de : " , bonus[0] ," E \nLa carte appartient à ", compte[0]
     solde = beautify(solde)
     eg.msgbox(msg=solde, title='Solde')
     time.sleep(2)
