@@ -4,6 +4,7 @@ import time
 import datetime
 import random
 import os
+import easygui as eg
 
 from GeStock_Users import *
 from GeStock_HistoryIn import *
@@ -15,26 +16,16 @@ from GeStock_Bonus import *
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
-def afficheHeader():
-    cls()
-    for i in range(2): print(100*'#')
-    print();print()
-    print(46*' ', end='')
-    print("GeStock \n")
-    print(86*' ', end='')
-    print("Nicolas PINHAL")
-    for i in range(2): print(100*'#')
-
 def afficheMenu():
-    space=15
-    print();print(space*' ', end='');print("1) Vente")
-    print();print(space*' ', end='');print("2) Ajouter Utilisateur")
-    print();print(space*' ', end='');print("3) Crediter Utilisateur")
-    print();print(space*' ', end='');print("4) Consulter Solde")
-    print();print(space*' ', end='');print("5) Ajouter Produit")
-    print();print(space*' ', end='');print("6) Ajouter Stock")
-    print();print(space*' ', end='');print("7) Consulter Stock")
-    print();print(space*' ', end='');print("9) Sauvegarder & Quitter")
+    listeActions = ["Vente","Ajouter Utilisateur","Crediter Utilisateur", "Consulter Solde", "Ajouter Produit", "Ajouter Stock", "Consulter Stock", "Sauvegarder & Quitter"]
+    data = eg.choicebox(msg="Que souhaitez vous faire ?", title="GeStock", choices=listeActions)
+    launch(data)
+
+def beautify(moche):
+    beau = ""
+    for i in tuple:
+        beau += i
+    return beau
 
 #Vérification et création des tables
 #Ne devrait être utile que lorsque que la BD à été corrompue
@@ -45,38 +36,27 @@ initStock()
 initHistoryStock()
 initHistoryOut()
 
-while 1:
-    afficheHeader()
-    afficheMenu()
-    rep = input()
-    if rep == "1":
+def launch(rep):
+    if rep == "Vente":
         vendre()
-    elif rep == "2":
+    elif rep == "Ajouter Utilisateur":
         ajouterUtilisateur()
-    elif rep == "3":
+    elif rep == "Crediter Utilisateur":
         crediterUtilisateur()
-    elif rep == "4":
+    elif rep == "Consulter Solde":
         consulterSolde()
-    elif rep == "5":
+    elif rep == "Ajouter Produit":
         ajouterProduit()
-    elif rep == "6":
+    elif rep == "Ajouter Stock":
         ajouterStock()
-    elif rep == "7":
+    elif rep == "Consulter Stock":
         consulterStock()
-    elif rep == "9":
+    elif rep == "Sauvegarder & Quitter":
         c.close()
         exit()
     else:
-        pass
-    cls()
+        eg.msgbox(msg="Choix inconnu", title="Erreur !")
+        time.sleep(2)
 
-
-#ajouterUtilisateur()
-#consulterSolde()
-#crediterUtilisateur()
-
-#ajouterProduit()
-#ajouterStock()
-#consulterStock()
-
-#vendre()
+while 1:
+    afficheMenu()
