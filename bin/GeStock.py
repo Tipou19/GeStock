@@ -21,12 +21,6 @@ def afficheMenu():
     data = eg.choicebox(msg="Que souhaitez vous faire ?", title="GeStock", choices=listeActions)
     launch(data)
 
-def beautify(moche):
-    beau = ""
-    for i in tuple:
-        beau += i
-    return beau
-
 #Vérification et création des tables
 #Ne devrait être utile que lorsque que la BD à été corrompue
 #TODO : Sauvegarde auto
