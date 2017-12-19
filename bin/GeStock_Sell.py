@@ -30,7 +30,8 @@ def vendre():
             else:
                 c.execute ('SELECT desc FROM stock WHERE idProduit = '+ idProduit)
                 desc = c.fetchone()
-                msg = "Voulez vous vendre du ", desc[0] ," ?"
+                msg = ("Voulez vous vendre du ", desc[0] ," ?")
+                msg = beautify(msg)
                 rep = eg.ynbox(msg = msg)
 
     debiter(idProduit, count)
@@ -41,7 +42,8 @@ def debiter(idProduit, count):
     prix = c.fetchone()
     prix = prix[0]
     #Affichage du prix + Récuperation de la carte
-    paye = ("A payer", prix ,"Passez la carte")
+    paye = ("A payer ", prix ," Passez la carte")
+    paye = beautify(paye)
     temp = eg.enterbox(msg=paye , title="Payement !")
     carte = str(tradCarte(temp))
     #Debit
@@ -50,12 +52,20 @@ def debiter(idProduit, count):
     solde = solde[0]
     if solde > prix :
         c.execute("UPDATE users SET solde = " + str(solde - prix) + "  WHERE idCarte = " + str(carte))
-        eg.msgbox(msg="Debit ... OK !")
+        c.execute("SELECT nom FROM users WHERE idCarte = "+ str(carte))
+        compte = c.fetchone()
+        debitMessage = ("Debit sur le compte \"", compte[0] , "\" ... OK !")
         deb = str(count - 1)
         prod = str(idProduit)
         c.execute("UPDATE stock SET stock = " + deb + " WHERE idProduit = " + prod)
-        eg.msgbox(msg="Destockage ... OK !")
+        debitMessage = beautify(debitMessage)
+        debitMessage += "\nDestockage ... OK !"
+        c.execute("SELECT solde FROM users WHERE idCarte = "+ carte)
+        solde = c.fetchone()
+        debitMessage = (debitMessage, "\nSolde restant pour", compte[0] ," : ",solde[0])
+        debitMessage = beautify(debitMessage)
+        eg.msgbox(msg=debitMessage, title="Succès !")
         conn.commit()
         historyOut(carte, idProduit)
     else:
-        eg.msgbox(msg="Solde INSUFISANT !!")
+        eg.msgbox(msg="Solde INSUFISANT !!",title="Solde INSUFISANT !")

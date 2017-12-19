@@ -65,7 +65,9 @@ def consulterSolde():
     carte = str(tradCarte(temp))
     c.execute ('SELECT solde FROM users WHERE idCarte = '+ carte)
     solde = c.fetchone()
-    solde = "Le solde est de : ", solde[0] ," E"
+    c.execute ('SELECT nom FROM users WHERE idCarte = '+ carte)
+    compte = c.fetchone()
+    solde = "Le solde est de : ", solde[0] ," E \nLa carte appartient à ", compte[0] 
     solde = beautify(solde)
     eg.msgbox(msg=solde, title='Solde')
     time.sleep(2)
