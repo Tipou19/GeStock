@@ -15,7 +15,15 @@ c = conn.cursor()
 def vendre():
     rep = False
     while rep == False:
-        idProduit = eg.enterbox(msg="Quel est l'id du Produit ?",title="Vente !")
+        idProduit = ""
+        liste = []
+        c.execute("SELECT desc, idProduit FROM stock")
+        for row in c.fetchall():
+            liste.append(row[0])
+        index = eg.choicebox(msg="Pick an item", choices=liste, title="Vente")
+        for i in range(len(liste)) :
+            if liste[i] == index:
+                idProduit = str(i)
         if idProduit == None or idProduit == "":
             return
         c.execute ('SELECT stock FROM stock WHERE idProduit = '+ idProduit)
