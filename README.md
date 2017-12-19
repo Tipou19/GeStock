@@ -1,1 +1,40 @@
-# GeStock
+# **GeStock**
+Nicolas PINHAL
+
+Tout droits réservés 
+
+Ce logiciel à été réalisé dans le but de gérer le stock de boissons et de snacks du BDE Informatique, les principaux objectifs étaient la légèreté, la portabilité ainsi que la facilité d'amélioration et d'entretient. 
+Vous ne pouvez pas modifier ou utiliser mon code sans mon autorisation préalable. 
+
+## Utilisation
+**Sous Windows :**
+
+ - Avoir Python3 installé
+ - Avoir installé les librairies suivantes : 
+sqlite3,
+time,
+datetime,
+random,
+os .
+- Lancer GeStock.ink
+
+**Sous Linux :**
+
+ - Avoir Python3 installé
+ - Avoir installé les librairies suivantes : 
+sqlite3,
+time,
+datetime,
+random,
+os .
+- Lancer `python3 bin/GeStock.py`
+
+## Détails
+**RFID :**
+Ce soft a été créé pour être utilisé avec un lecteur de cartes RFID USB ( EM4100 125KHz ). 
+
+**Précisions importantes sur le lecteur :**
+
+Le lecteur de cartes est considéré comme un clavier par l'os : il envoie un séquence de touches et fini par la touche entrée. Attention si le clavier n'est pas en majuscule le lecteur ne renverra pas des chiffres mais leurs symboles correspondant ( Uniquement sur clavier AZERTY sous windows ) 
+
+
