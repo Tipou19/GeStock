@@ -75,9 +75,12 @@ def consulterSolde():
     solde = c.fetchone()
     c.execute ('SELECT nom FROM users WHERE idCarte = '+ carte)
     compte = c.fetchone()
-    solde = "Le solde est de : ", solde[0], " E \nLa carte appartient à ", compte[0]
-    solde = beautify(solde)
-    eg.msgbox(msg=solde, title='Solde')
+    if compte is None :
+        print("Erreur")
+    else:
+        solde = "Le solde est de : ", solde[0], " E \nLa carte appartient à ", compte[0]
+        solde = beautify(solde)
+        eg.msgbox(msg=solde, title='Solde')
 
 def crediterUtilisateur():
     temp = eg.enterbox(msg="Passez une carte ...")
