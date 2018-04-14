@@ -49,4 +49,5 @@ La visualisation et/ou la modification de la BDD peut-être effectuée grâce à
 ## TODO
 
  - Interface GUI **DONE**
+ - Erreur de typage lors du credit d'un nombre à virgule **DONE**
  - Page web affichage stocks

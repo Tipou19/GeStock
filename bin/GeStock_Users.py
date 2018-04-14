@@ -86,7 +86,7 @@ def crediterUtilisateur():
     solde = c.fetchone()
     solde=("Le solde est de : ", solde[0]," E")
     solde=beautify(solde)
-    credit= int(eg.enterbox(msg="Combien à crediter ?"))
+    credit= float(eg.enterbox(msg="Combien à crediter ?"))
     historyIn(carte, credit)
     c.execute ('SELECT solde FROM users WHERE idCarte = '+ carte)
     solde = c.fetchone()
