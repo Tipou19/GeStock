@@ -7,7 +7,6 @@ import easygui as eg
 from GeStock_HistoryIn import *
 from GeStock_HistoryStock import *
 from GeStock_Users import *
-from GeStock_Bonus import *
 
 conn = sqlite3.connect("users.db")
 c = conn.cursor()
@@ -88,7 +87,10 @@ def consulterStock():
     c.execute("SELECT desc, stock FROM stock")
     total = ""
     for row in c.fetchall():
-        temp = beautify(row)
+        temp = str(row[0])
+        for i in range(20-len(row[0])):
+            temp+=" "
+        temp += str(row[1])
         temp = temp + "\n"
         total+= temp
     eg.textbox(text=total, title="Stock")

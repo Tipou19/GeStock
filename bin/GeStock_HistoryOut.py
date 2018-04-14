@@ -11,7 +11,7 @@ c = conn.cursor()
 
 def initHistoryOut():
         c.execute("CREATE TABLE IF NOT EXISTS historyOut(idCarte INTEGER, idProduit INTEGER, timestamp VARCHAR)")
-    
+
 
 def historyOut(idCarte, idProduit):
     unix = time.time()
@@ -20,4 +20,3 @@ def historyOut(idCarte, idProduit):
               (idCarte, idProduit, date))
     conn.commit()
     print("Ajout dans l'historique ...")
-    time.sleep(1)

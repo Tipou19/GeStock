@@ -11,7 +11,7 @@ c = conn.cursor()
 
 def initHistoryIn():
         c.execute("CREATE TABLE IF NOT EXISTS historyIn (idCarte INTEGER, credit REAL, timestamp VARCHAR)")
-    
+
 
 def historyIn(carte, credit):
     unix = time.time()
@@ -20,4 +20,3 @@ def historyIn(carte, credit):
               (carte, credit, date))
     conn.commit()
     print("Ajout dans l'historique ...")
-    time.sleep(1)

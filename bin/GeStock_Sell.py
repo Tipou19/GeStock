@@ -5,7 +5,6 @@ import datetime
 import random
 import easygui as eg
 from GeStock_Users import *
-from GeStock_Bonus import *
 from GeStock_HistoryIn import *
 from GeStock_Stock import *
 from GeStock_HistoryOut import *
@@ -84,12 +83,7 @@ def debiter(idProduit, count):
         solde = c.fetchone()
         debitMessage = (debitMessage, "\nSolde restant pour", compte[0] ," : ",solde[0])
         debitMessage = beautify(debitMessage)
-        c.execute("SELECT  soldeBonus FROM bonus WHERE idCarte = "+carte)
-        ########################
-        solde = c.fetchone()
-        solde = int(solde[0]) + 0.1
-        ########################
-        c.execute("UPDATE bonus SET soldeBonus =" + str(solde) + " WHERE idCarte = "+ carte)
+
         eg.msgbox(msg=debitMessage, title="Succès !")
         conn.commit()
         historyOut(carte, idProduit)

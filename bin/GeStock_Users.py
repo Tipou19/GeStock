@@ -5,10 +5,15 @@ import datetime
 import random
 import easygui as eg
 from GeStock_HistoryIn import *
-from GeStock_Bonus import *
 
 conn = sqlite3.connect("users.db")
 c = conn.cursor()
+
+def beautify(moche):
+    beau = ""
+    for i in moche:
+        beau += str(i)
+    return beau
 
 def initUsers():
     c.execute("CREATE TABLE IF NOT EXISTS users (idCarte INTEGER, solde REAL, nom VARCHAR)")
@@ -58,8 +63,6 @@ def ajouterUtilisateur():
         if solde is None : solde = 0;
         c.execute("INSERT INTO users (idCarte, solde, nom) VALUES ( ?, ?, ?)",
               (carte, solde, nom))
-        c.execute("INSERT INTO bonus (idCarte, soldeBonus, vip) VALUES ( ?, ?, ?)",
-              (carte, 0, False))
         conn.commit()
         eg.msgbox(msg="Utilisateur ajouté !", title="Succès !")
         historyIn(carte, solde)
@@ -72,12 +75,9 @@ def consulterSolde():
     solde = c.fetchone()
     c.execute ('SELECT nom FROM users WHERE idCarte = '+ carte)
     compte = c.fetchone()
-    c.execute ('SELECT soldeBonus FROM bonus WHERE idCarte = '+ carte)
-    bonus = c.fetchone()
-    solde = "Le solde est de : ", solde[0], "E\nLe solde bonus est de : " , bonus[0] ," E \nLa carte appartient à ", compte[0]
+    solde = "Le solde est de : ", solde[0], " E \nLa carte appartient à ", compte[0]
     solde = beautify(solde)
     eg.msgbox(msg=solde, title='Solde')
-    time.sleep(2)
 
 def crediterUtilisateur():
     temp = eg.enterbox(msg="Passez une carte ...")
