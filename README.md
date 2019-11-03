@@ -1,9 +1,8 @@
 # **GeStock**
-Nicolas PINHAL
 
 Tout droits réservés
 
-Ce logiciel à été réalisé dans le but de gérer le stock de boissons et de snacks du BDE Informatique, les principaux objectifs étaient la légèreté, la portabilité ainsi que la facilité d'amélioration et d'entretient.
+Ce logiciel à été réalisé dans le but de gérer le stock de boissons et de snacks du BDE, les principaux objectifs étaient la légèreté, la portabilité ainsi que la facilité d'amélioration et d'entretient.
 Vous ne pouvez pas modifier ou utiliser mon code sans mon autorisation préalable.
 
 ## Utilisation
